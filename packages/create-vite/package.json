@@ -1,0 +1,34 @@
+{
+  "name": "@atox/create-vite",
+  "version": "0.0.1",
+  "type": "module",
+  "bin": {
+    "create-vite": "index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "index.js",
+    "templates",
+    "dist"
+  ],
+  "scripts": {
+    "start": "unbuild --stub",
+    "build": "unbuild --minify",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/minimist": "^1.2.5",
+    "@types/node": "^18.19.50",
+    "@types/prompts": "^2.4.9",
+    "ignore": "^5.3.2",
+    "minimist": "^1.2.8",
+    "picocolors": "^1.1.0",
+    "prompts": "^2.4.2",
+    "unbuild": "^2.0.0"
+  },
+  "engines": {
+    "node": "^18.0.0 || >=20.0.0"
+  }
+}
