@@ -11,6 +11,7 @@
   "files": [
     "index.js",
     "templates",
+    "templates/**/.gitignore",
     "dist"
   ],
   "scripts": {

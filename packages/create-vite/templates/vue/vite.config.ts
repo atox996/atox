@@ -29,6 +29,16 @@ const buildTime = new Intl.DateTimeFormat("zh-CN", {
 }).format(new Date());
 
 export default defineConfig({
+  build: {
+    outDir: "dist",
+    rollupOptions: {
+      output: {
+        chunkFileNames: "js/[name]-[hash].js",
+        entryFileNames: "js/[name]-[hash].js",
+        assetFileNames: "[ext]/[name]-[hash].[ext]",
+      },
+    },
+  },
   plugins: [
     vue(),
     AutoImport({
