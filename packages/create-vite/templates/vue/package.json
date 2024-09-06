@@ -46,9 +46,11 @@
     ]
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,vue}": [
-      "prettier --write --ignore-unknown",
+    "*": [
       "eslint --fix"
+    ],
+    "!*.vue": [
+      "prettier --write --ignore-unknown"
     ]
   },
   "simple-git-hooks": {
