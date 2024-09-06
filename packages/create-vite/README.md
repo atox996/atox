@@ -8,21 +8,21 @@
 With NPM:
 
 ```bash
-$ npm install @atox/create-vite
+$ npm install @atox/create-vite --global
 $ create-vite
 ```
 
 With Yarn:
 
 ```bash
-$ yarn add @atox/create-vite
+$ yarn add @atox/create-vite --global
 $ create-vite
 ```
 
 With PNPM:
 
 ```bash
-$ pnpm add @atox/create-vite
+$ pnpm add @atox/create-vite --global
 $ create-vite
 ```
 
