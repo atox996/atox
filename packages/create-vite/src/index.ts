@@ -15,15 +15,19 @@ import {
 import { DEFAULT_TAGET_DIR, FRAMEWORKS, helpMessage } from "./constance";
 import { fileURLToPath } from "node:url";
 import ignore from "ignore";
+import pkgJson from "../package.json";
 
 const argv = minimist<{
+  v?: boolean;
+  version?: boolean;
+  h?: boolean;
+  help?: boolean;
+
   t?: string;
   template?: string;
-  help?: boolean;
-  h?: boolean;
 }>(process.argv.slice(2), {
-  default: { help: false },
-  alias: { h: "help", t: "template" },
+  default: { version: false, help: false },
+  alias: { v: "version", h: "help", t: "template" },
   string: ["_"],
 });
 
@@ -32,6 +36,12 @@ const cwd = process.cwd();
 async function init() {
   const argTargetDir = formatTargetDir(argv._[0]);
   const argTemplate = argv.template || argv.t;
+
+  const version = argv.version;
+  if (version) {
+    console.log(pkgJson.version);
+    return;
+  }
 
   const help = argv.help;
   if (help) {

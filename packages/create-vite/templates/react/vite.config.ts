@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
+import react from "@vitejs/plugin-react";
 import AutoImport from "unplugin-auto-import/vite";
-import Components from "unplugin-vue-components/vite";
 
 import { execSync } from "node:child_process";
 import fs from "node:fs";
@@ -40,26 +39,19 @@ export default defineConfig({
     },
   },
   plugins: [
-    vue(),
+    react(),
     AutoImport({
       imports: [
-        "vue",
-        "vue-router",
+        "react",
+        "react-router-dom",
         {
-          "vue-router": [
-            "createRouter",
-            "createWebHistory",
-            "createWebHashHistory",
-          ],
+          react: ["StrictMode", "Suspense"],
+          "react-router-dom": ["BrowserRouter", "HashRouter"],
         },
       ],
       eslintrc: {
         enabled: true,
       },
-    }),
-    Components({
-      dirs: ["src/components"],
-      include: [/\.vue$/, /\.tsx?$/, /\.vue\?vue/],
     }),
   ],
   resolve: {
