@@ -39,9 +39,6 @@
   "engines": {
     "node": ">=18"
   },
-  "prettier": {
-    "trailingComma": "es5"
-  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"

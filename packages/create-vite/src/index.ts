@@ -113,7 +113,7 @@ async function init() {
             typeof argTemplate === "string" &&
             !FRAMEWORKS.find((item) => item.name === argTemplate)
               ? reset(
-                  `"${argTemplate}" isn't a valid template. Please choose from below: `
+                  `"${argTemplate}" isn't a valid template. Please choose from below: `,
                 )
               : reset("Select a framework:"),
           initial: 0,
@@ -130,7 +130,7 @@ async function init() {
         onCancel: () => {
           throw new Error(red("✖") + " Operation cancelled");
         },
-      }
+      },
     );
   } catch (cancelled) {
     if (cancelled instanceof Error) {
@@ -158,7 +158,7 @@ async function init() {
   const templateDir = path.resolve(
     fileURLToPath(import.meta.url),
     "../../templates",
-    template
+    template,
   );
 
   const ig = ignore();
@@ -178,12 +178,12 @@ async function init() {
   }
 
   const pkg = JSON.parse(
-    fs.readFileSync(path.join(templateDir, "package.json"), "utf-8")
+    fs.readFileSync(path.join(templateDir, "package.json"), "utf-8"),
   );
   pkg.name = packageName || getProjectName(targetDir);
   fs.writeFileSync(
     path.join(root, "package.json"),
-    JSON.stringify(pkg, null, 2) + "\n"
+    JSON.stringify(pkg, null, 2) + "\n",
   );
 
   const cdProjectName = path.relative(cwd, root);
@@ -192,7 +192,7 @@ async function init() {
     console.log(
       `  cd ${
         cdProjectName.includes(" ") ? `"${cdProjectName}"` : cdProjectName
-      }`
+      }`,
     );
   }
 

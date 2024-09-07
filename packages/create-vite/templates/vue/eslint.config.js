@@ -30,5 +30,5 @@ export default tseslint.config(
    * @see https://github.com/prettier/eslint-plugin-prettier?tab=readme-ov-file#configuration-new-eslintconfigjs
    * @description Must be in the last item
    */
-  eslintPluginPrettierRecommended
+  eslintPluginPrettierRecommended,
 );
