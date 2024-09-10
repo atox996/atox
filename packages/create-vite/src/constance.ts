@@ -7,6 +7,7 @@ import {
   blueBright,
   yellowBright,
   whiteBright,
+  cyanBright,
 } from "picocolors";
 
 export const DEFAULT_TAGET_DIR = "vite-project";
@@ -32,7 +33,7 @@ export const FRAMEWORKS: Framework[] = [
   {
     name: "vvt-starter",
     display: "VVT Starter",
-    color: greenBright,
+    color: cyanBright,
   },
   {
     name: "vue",

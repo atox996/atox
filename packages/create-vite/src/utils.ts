@@ -60,7 +60,6 @@ export async function findAvailablePackageManager() {
   for (const command of commands) {
     const availableCommand = await checkCommand(command);
     if (availableCommand) {
-      console.log(`Detected available package manager: ${availableCommand}`);
       return availableCommand; // 找到可用的命令后立即返回
     }
   }

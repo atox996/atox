@@ -207,8 +207,14 @@ async function init() {
     );
   }
   const pkgManager = await findAvailablePackageManager();
-  console.log(`  ${pkgManager} install`);
-  console.log(`  ${pkgManager} run start`);
+  if (!pkgManager) {
+    console.log(
+      "No package manager is available. Please install one and try again.",
+    );
+  } else {
+    console.log(`  ${pkgManager} install`);
+    console.log(`  ${pkgManager} run start`);
+  }
   console.log();
 }
 
