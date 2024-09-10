@@ -6,6 +6,7 @@ import prompts from "prompts";
 import {
   copy,
   emptyDir,
+  findAvailablePackageManager,
   formatTargetDir,
   getProjectName,
   isEmpty,
@@ -177,7 +178,7 @@ async function init() {
     const gitignoreContent = fs.readFileSync(gitignorePath, "utf-8");
     ig.add(gitignoreContent);
   }
-  ig.add(["pnpm-lock.yaml", "package.json"]);
+  ig.add(["pnpm-lock.yaml", "yarn.lock", "package-lock.json", "package.json"]);
 
   const files = fs.readdirSync(templateDir);
   const filteredFiles = files.filter((file) => !ig.ignores(file));
@@ -205,9 +206,9 @@ async function init() {
       }`,
     );
   }
-
-  console.log("  pnpm install");
-  console.log("  pnpm run start");
+  const pkgManager = await findAvailablePackageManager();
+  console.log(`  ${pkgManager} install`);
+  console.log(`  ${pkgManager} run start`);
   console.log();
 }
 

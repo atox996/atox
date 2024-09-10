@@ -52,3 +52,5 @@ out
 *.pid
 *.seed
 *.pid.lock
+
+!yarn.lock

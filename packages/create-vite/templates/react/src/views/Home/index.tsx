@@ -5,7 +5,7 @@ import ReactSvg from "@/assets/react.svg";
 
 const Home = () => {
   return (
-    <>
+    <div className={classNames(styles["page-wrapper"])}>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img
@@ -23,7 +23,7 @@ const Home = () => {
         </a>
       </div>
       <HelloWorld msg="Vite + React" />
-    </>
+    </div>
   );
 };
 

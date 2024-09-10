@@ -6,11 +6,10 @@
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "pnpm prettier && pnpm eslint && pnpm check",
+    "lint": "npm run prettier && npm run eslint && npm run check",
     "prettier": "prettier . --write --ignore-unknown",
     "eslint": "eslint . --fix",
     "check": "tsc --noEmit",
-    "preinstall": "npx only-allow pnpm",
     "postinstall": "simple-git-hooks"
   },
   "dependencies": {

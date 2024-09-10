@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-
+import { exec } from "child_process";
 export function formatTargetDir(targetDir: string | undefined) {
   return targetDir?.trim().replace(/\/+$/g, "");
 }
@@ -38,6 +38,35 @@ export function emptyDir(dir: string) {
     }
     fs.rmSync(path.resolve(dir, file), { recursive: true, force: true });
   }
+}
+
+// 检查命令是否可用的辅助函数
+export function checkCommand(command: string) {
+  return new Promise<string | null>((resolve) => {
+    exec(`${command} --version`, (error) => {
+      if (error) {
+        resolve(null); // 不可用时返回 null
+      } else {
+        resolve(command); // 可用时返回命令名
+      }
+    });
+  });
+}
+
+// 检查包管理器
+export async function findAvailablePackageManager() {
+  const commands = ["pnpm", "yarn", "npm"];
+
+  for (const command of commands) {
+    const availableCommand = await checkCommand(command);
+    if (availableCommand) {
+      console.log(`Detected available package manager: ${availableCommand}`);
+      return availableCommand; // 找到可用的命令后立即返回
+    }
+  }
+
+  console.log("No package manager is available.");
+  return null; // 如果没有包管理器可用
 }
 
 export function copy(src: string, dest: string) {

@@ -4,9 +4,95 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Simple</title>
+    <title>Vite</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+
+      .page-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .logo {
+          height: 6em;
+          padding: 1.5em;
+          will-change: filter;
+          transition: filter 300ms;
+          &:hover {
+            filter: drop-shadow(0 0 2em #646cffaa);
+          }
+          &.vue:hover {
+            filter: drop-shadow(0 0 2em #42b883aa);
+          }
+        }
+      }
+
+      a {
+        font-weight: 500;
+        color: #646cff;
+        text-decoration: inherit;
+        &:hover {
+          color: #747bff;
+        }
+      }
+
+      h1 {
+        font-size: 3.2em;
+        line-height: 1.1;
+      }
+
+      button {
+        border-radius: 8px;
+        border: 1px solid transparent;
+        padding: 0.6em 1.2em;
+        font-size: 1em;
+        font-weight: 500;
+        font-family: inherit;
+        background-color: #f9f9f9;
+        cursor: pointer;
+        transition: border-color 0.25s;
+
+        &:hover {
+          border-color: #646cff;
+        }
+
+        &:focus,
+        &:focus-visible {
+          outline: 4px auto -webkit-focus-ring-color;
+        }
+      }
+    </style>
   </head>
   <body>
+    <div class="page-wrapper">
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src="/vite.svg" class="logo" alt="Vite logo" />
+        </a>
+      </div>
+      <h1>Vite</h1>
+
+      <button type="button" id="counter">
+        count is <span id="count">0</span>
+      </button>
+
+      <p>
+        Check out
+        <a
+          href="https://www.npmjs.com/package/@atox/create-vite"
+          target="_blank"
+          >@atox/create-vite</a
+        >, Vite template starter
+      </p>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

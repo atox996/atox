@@ -21,6 +21,7 @@ ${bold(cyan("Options:"))}
   ${blue("-t, --template NAME")}        use a specific template
 
 ${bold(cyan("Available templates:"))}
+  ${bold(greenBright("vvt-starter"))}
   ${bold(greenBright("vue"))}
   ${bold(greenBright("react"))}
   ${bold(greenBright("monorepo"))}
@@ -28,6 +29,11 @@ ${bold(cyan("Available templates:"))}
 `;
 
 export const FRAMEWORKS: Framework[] = [
+  {
+    name: "vvt-starter",
+    display: "VVT Starter",
+    color: greenBright,
+  },
   {
     name: "vue",
     display: "Vue",
