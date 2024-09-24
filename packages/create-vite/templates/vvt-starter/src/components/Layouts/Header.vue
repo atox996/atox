@@ -16,12 +16,14 @@ const route = useRoute();
 const settingStore = useSettingStore();
 
 const options = computed<TdBreadcrumbItemProps[]>(() =>
-  route.matched.map((item) => ({
-    content: item.meta.title,
-    disabled: item.path === route.path,
-    target: item.path.startsWith("http") ? "_blank" : "_self",
-    to: item.path,
-  })),
+  route.matched
+    .filter((item) => !item.meta.single)
+    .map((item) => ({
+      content: item.meta.title,
+      disabled: item.path === route.path,
+      target: item.path.startsWith("http") ? "_blank" : "_self",
+      to: item.path,
+    })),
 );
 
 const modeIcon = computed(() =>

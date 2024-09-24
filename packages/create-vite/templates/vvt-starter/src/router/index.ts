@@ -3,12 +3,10 @@ export default createRouter({
   routes: [
     {
       path: "/",
-      name: "Page",
       component: Layouts,
       redirect: "/home",
       meta: {
-        title: "首页",
-        icon: DashboardIcon,
+        single: true,
       },
       children: [
         {
@@ -16,6 +14,8 @@ export default createRouter({
           name: "Home",
           meta: {
             title: "首页",
+            icon: DashboardIcon,
+            keepAlive: true,
           },
           component: () => import("@/views/Home/index.vue"),
         },
@@ -86,15 +86,6 @@ export default createRouter({
           ],
         },
       ],
-    },
-    {
-      path: "/test",
-      name: "Test",
-      component: Layouts,
-      meta: {
-        title: "测试",
-        icon: "earth",
-      },
     },
   ],
 });

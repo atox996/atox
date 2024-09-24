@@ -46,7 +46,15 @@ const props = defineProps<{
 
 const getMenuList = (list?: readonly RouteRecordRaw[]) => {
   if (!list?.length) return [];
-  return list.filter((item) => item.meta?.hidden !== true);
+  return list
+    .filter((item) => item.meta?.hidden !== true)
+    .map((item) => {
+      if (item.meta?.single) {
+        const singleRoute = item.children![0];
+        return singleRoute;
+      }
+      return item;
+    });
 };
 
 const menuList = computed(() => getMenuList(props.navData));

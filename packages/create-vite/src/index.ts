@@ -34,6 +34,8 @@ const argv = minimist<{
 
 const cwd = process.cwd();
 
+const pkgManager = await findAvailablePackageManager();
+
 async function init() {
   const argTargetDir = formatTargetDir(argv._[0]);
   const argTemplate = argv.template || argv.t;
@@ -173,12 +175,18 @@ async function init() {
   );
 
   const ig = ignore();
-  const gitignorePath = path.join(templateDir, ".gitignore");
+  const gitignorePath = path.join(templateDir, "_gitignore");
   if (fs.existsSync(gitignorePath)) {
     const gitignoreContent = fs.readFileSync(gitignorePath, "utf-8");
     ig.add(gitignoreContent);
   }
-  ig.add(["pnpm-lock.yaml", "yarn.lock", "package-lock.json", "package.json"]);
+  ig.add([
+    "pnpm-lock.yaml",
+    "yarn.lock",
+    "package-lock.json",
+    "package.json",
+    "_gitignore",
+  ]);
 
   const files = fs.readdirSync(templateDir);
   const filteredFiles = files.filter((file) => !ig.ignores(file));
@@ -197,6 +205,8 @@ async function init() {
     JSON.stringify(pkg, null, 2) + "\n",
   );
 
+  copy(gitignorePath, path.join(root, ".gitignore"));
+
   const cdProjectName = path.relative(cwd, root);
   console.log(`\nDone. Now run:\n`);
   if (root !== cwd) {
@@ -206,7 +216,6 @@ async function init() {
       }`,
     );
   }
-  const pkgManager = await findAvailablePackageManager();
   if (!pkgManager) {
     console.log(
       "No package manager is available. Please install one and try again.",

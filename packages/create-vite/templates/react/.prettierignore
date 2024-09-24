@@ -1,4 +1,6 @@
 auto-imports.d.ts
+.eslintrc-auto-import.json
+
 pnpm-lock.yaml
 yarn.lock
 package-lock.json

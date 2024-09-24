@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="page-wrapper">
     <t-space size="20px">
       <a href="https://vitejs.dev" target="_blank">
         <img src="/vite.svg" class="logo" alt="Vite logo" />
