@@ -1,4 +1,4 @@
-import { red, reset } from "picocolors";
+import pcolor from "picocolors";
 import minimist from "minimist";
 import path from "node:path";
 import fs from "node:fs";
@@ -67,7 +67,7 @@ async function init() {
         {
           type: argTargetDir ? null : "text",
           name: "projectName",
-          message: reset("Project name:"),
+          message: pcolor.reset("Project name:"),
           initial: DEFAULT_TAGET_DIR,
           onState: (state) => {
             targetDir = formatTargetDir(state.value) || DEFAULT_TAGET_DIR;
@@ -101,7 +101,7 @@ async function init() {
         {
           type: (_, { overwrite }: { overwrite?: string }) => {
             if (overwrite === "no") {
-              throw new Error(red("✖") + " Operation cancelled");
+              throw new Error(pcolor.red("✖") + " Operation cancelled");
             }
             return null;
           },
@@ -111,7 +111,7 @@ async function init() {
           type: () =>
             isValidPackageName(getProjectName(targetDir)) ? null : "text",
           name: "packageName",
-          message: reset("Package name:"),
+          message: pcolor.reset("Package name:"),
           initial: () => toValidPackageName(getProjectName(targetDir)),
           validate: (dir) =>
             isValidPackageName(dir) || "Invalid package.json name",
@@ -125,10 +125,10 @@ async function init() {
           message:
             typeof argTemplate === "string" &&
             !FRAMEWORKS.find((item) => item.name === argTemplate)
-              ? reset(
+              ? pcolor.reset(
                   `"${argTemplate}" isn't a valid template. Please choose from below: `,
                 )
-              : reset("Select a framework:"),
+              : pcolor.reset("Select a framework:"),
           initial: 0,
           choices: FRAMEWORKS.map((framework) => {
             const frameworkColor = framework.color;
@@ -141,7 +141,7 @@ async function init() {
       ],
       {
         onCancel: () => {
-          throw new Error(red("✖") + " Operation cancelled");
+          throw new Error(pcolor.red("✖") + " Operation cancelled");
         },
       },
     );

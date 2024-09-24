@@ -10,11 +10,13 @@
   },
   "files": [
     "index.js",
+    "dist",
     "templates",
-    "dist"
+    "!node_modules",
+    "!pnpm-lock.yaml"
   ],
   "scripts": {
-    "start": "unbuild --stub",
+    "start": "esno src/index.ts",
     "build": "unbuild --minify",
     "prepublishOnly": "pnpm build"
   },
@@ -22,6 +24,7 @@
     "@types/minimist": "^1.2.5",
     "@types/node": "^18.19.50",
     "@types/prompts": "^2.4.9",
+    "esno": "^4.7.0",
     "ignore": "^5.3.2",
     "minimist": "^1.2.8",
     "picocolors": "^1.1.0",

@@ -1,58 +1,48 @@
-import {
-  blue,
-  greenBright,
-  bold,
-  cyan,
-  yellow,
-  blueBright,
-  yellowBright,
-  whiteBright,
-  cyanBright,
-} from "picocolors";
+import pcolor from "picocolors";
 
 export const DEFAULT_TAGET_DIR = "vite-project";
 
 export const helpMessage = `\
-${bold(yellow("Usage:"))} vite-template [OPTION]... [DIRECTORY]
+${pcolor.bold(pcolor.yellow("Usage:"))} vite-template [OPTION]... [DIRECTORY]
 
-${bold("Create a new Vite project in TypeScript.")} 
+${pcolor.bold("Create a new Vite project in TypeScript.")} 
 With no arguments, start the CLI in interactive mode.
 
-${bold(cyan("Options:"))}
-  ${blue("-t, --template NAME")}        use a specific template
+${pcolor.bold(pcolor.cyan("Options:"))}
+  ${pcolor.blue("-t, --template NAME")}        use a specific template
 
-${bold(cyan("Available templates:"))}
-  ${bold(greenBright("vvt-starter"))}
-  ${bold(greenBright("vue"))}
-  ${bold(greenBright("react"))}
-  ${bold(greenBright("monorepo"))}
-  ${bold(greenBright("simple"))}
+${pcolor.bold(pcolor.cyan("Available templates:"))}
+  ${pcolor.bold(pcolor.greenBright("vvt-starter"))}
+  ${pcolor.bold(pcolor.greenBright("vue"))}
+  ${pcolor.bold(pcolor.greenBright("react"))}
+  ${pcolor.bold(pcolor.greenBright("monorepo"))}
+  ${pcolor.bold(pcolor.greenBright("simple"))}
 `;
 
 export const FRAMEWORKS: Framework[] = [
   {
     name: "vvt-starter",
     display: "VVT Starter",
-    color: cyanBright,
+    color: pcolor.cyanBright,
   },
   {
     name: "vue",
     display: "Vue",
-    color: greenBright,
+    color: pcolor.greenBright,
   },
   {
     name: "react",
     display: "React",
-    color: blueBright,
+    color: pcolor.blueBright,
   },
   {
     name: "monorepo",
     display: "Monorepo",
-    color: yellowBright,
+    color: pcolor.yellowBright,
   },
   {
     name: "simple",
     display: "Simple",
-    color: whiteBright,
+    color: pcolor.whiteBright,
   },
 ];
