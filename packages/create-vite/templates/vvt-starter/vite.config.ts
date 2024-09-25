@@ -50,7 +50,7 @@ export default defineConfig({
         "pinia",
         {
           from: "vue-router",
-          imports: ["RouteRecordRaw"],
+          imports: ["_RouteRecordBase"],
           type: true,
         },
         {
@@ -68,7 +68,6 @@ export default defineConfig({
         TDesignResolver({
           library: "vue-next",
           resolveIcons: true,
-          esm: true,
         }),
       ],
     }),
@@ -79,7 +78,6 @@ export default defineConfig({
         TDesignResolver({
           library: "vue-next",
           resolveIcons: true,
-          esm: true,
         }),
       ],
     }),

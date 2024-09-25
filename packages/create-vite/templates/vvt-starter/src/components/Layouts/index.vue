@@ -7,15 +7,22 @@
       <t-header><Header /></t-header>
       <t-content class="content-wrapper">
         <router-view v-slot="{ Component, route }">
-          <keep-alive v-if="route.meta.keepAlive">
-            <component :is="Component" :key="route.path" />
+          <keep-alive :include="keepAliveViews">
+            <component :is="getComponent(Component, route)" :key="route.path" />
           </keep-alive>
-          <component :is="Component" v-else :key="route.path" />
         </router-view>
       </t-content>
     </t-layout>
   </t-layout>
 </template>
+<script lang="ts" setup>
+import { useKeepAlive } from "@/hooks/useKeepAlive";
+
+const router = useRouter();
+const routes = router.getRoutes();
+
+const { keepAliveViews, getComponent } = useKeepAlive(routes);
+</script>
 <style lang="less" scoped>
 .app-layout {
   width: 100%;

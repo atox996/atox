@@ -41,10 +41,10 @@
 </template>
 <script lang="ts" setup>
 const props = defineProps<{
-  navData: readonly RouteRecordRaw[];
+  navData: readonly _RouteRecordBase[];
 }>();
 
-const getMenuList = (list?: readonly RouteRecordRaw[]) => {
+const getMenuList = (list?: readonly _RouteRecordBase[]) => {
   if (!list?.length) return [];
   return list
     .filter((item) => item.meta?.hidden !== true)
