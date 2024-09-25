@@ -11,13 +11,12 @@
   "files": [
     "index.js",
     "dist",
-    "templates",
-    "!node_modules",
-    "!pnpm-lock.yaml"
+    "templates"
   ],
   "scripts": {
     "start": "esno src/index.ts",
-    "build": "unbuild --minify",
+    "build": "esno build.ts",
+    "prestart": "pnpm build",
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {

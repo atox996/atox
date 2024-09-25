@@ -193,7 +193,9 @@ async function init() {
 
   for (const file of filteredFiles) {
     const targetPath = path.join(root, file);
-    copy(path.join(templateDir, file), targetPath);
+    copy(path.join(templateDir, file), targetPath, (srcPath) =>
+      ig.ignores(path.relative(cwd, srcPath)),
+    );
   }
 
   const pkg = JSON.parse(

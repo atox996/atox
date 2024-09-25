@@ -23,4 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 
-packages/**/pnpm-lock.yaml
+packages/create-vite/templates

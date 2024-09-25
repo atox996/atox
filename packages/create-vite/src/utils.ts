@@ -68,20 +68,30 @@ export async function findAvailablePackageManager() {
   return null; // 如果没有包管理器可用
 }
 
-export function copy(src: string, dest: string) {
+export function copy(
+  src: string,
+  dest: string,
+  ignoreValidator?: (src: string) => boolean,
+) {
+  if (ignoreValidator?.(src)) return;
   const stat = fs.statSync(src);
   if (stat.isDirectory()) {
-    copyDir(src, dest);
+    copyDir(src, dest, ignoreValidator);
   } else {
     fs.copyFileSync(src, dest);
   }
 }
 
-export function copyDir(srcDir: string, destDir: string) {
+export function copyDir(
+  srcDir: string,
+  destDir: string,
+  ignoreValidator?: (src: string) => boolean,
+) {
+  if (ignoreValidator?.(srcDir)) return;
   fs.mkdirSync(destDir, { recursive: true });
   for (const file of fs.readdirSync(srcDir)) {
     const srcFile = path.resolve(srcDir, file);
     const destFile = path.resolve(destDir, file);
-    copy(srcFile, destFile);
+    copy(srcFile, destFile, ignoreValidator);
   }
 }
