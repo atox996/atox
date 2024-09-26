@@ -87,7 +87,6 @@ export function copyDir(
   destDir: string,
   ignoreValidator?: (src: string) => boolean,
 ) {
-  if (ignoreValidator?.(srcDir)) return;
   fs.mkdirSync(destDir, { recursive: true });
   for (const file of fs.readdirSync(srcDir)) {
     const srcFile = path.resolve(srcDir, file);

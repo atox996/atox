@@ -27,10 +27,9 @@ function main() {
   const filteredFiles = files.filter((file) => !ig.ignores(file));
   for (const file of filteredFiles) {
     const targetPath = path.join(targetDir, file);
-    copy(path.join(templatesDir, file), targetPath, (srcPath) => {
-      const pathname = path.relative(rootDir, srcPath);
-      return ig.ignores(pathname);
-    });
+    copy(path.join(templatesDir, file), targetPath, (srcPath) =>
+      ig.ignores(path.relative(templatesDir, srcPath)),
+    );
   }
 
   console.log("\nCopy templates done.");
