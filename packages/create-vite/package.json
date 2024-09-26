@@ -16,8 +16,9 @@
   "scripts": {
     "start": "esno src/index.ts",
     "build": "esno scripts/build.ts",
-    "prestart": "pnpm build",
-    "prepublishOnly": "pnpm build"
+    "copy-templates": "esno scripts/copy-templates.ts",
+    "prestart": "pnpm copy-templates",
+    "prepublishOnly": "pnpm build && pnpm copy-templates"
   },
   "devDependencies": {
     "@types/minimist": "^1.2.5",
