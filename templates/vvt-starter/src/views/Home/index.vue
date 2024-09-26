@@ -32,6 +32,8 @@ const count = ref(0);
 </script>
 <style lang="less" scoped>
 .page-wrapper {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
