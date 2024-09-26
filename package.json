@@ -2,9 +2,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start:vite": "pnpm -F !create-vite -r --parallel --stream run start",
-    "start:node": "pnpm -F create-vite -r run start",
-    "build": "pnpm -F ./packages/** -r run build",
+    "start": "pnpm -F ./templates/** -r --parallel --stream run start",
+    "start:create-vite": "pnpm -F create-vite -r run start",
+    "build": "pnpm -r --parallel --stream run build",
     "lint": "pnpm prettier && pnpm eslint && pnpm check",
     "prettier": "prettier . --write --ignore-unknown",
     "eslint": "eslint . --fix",

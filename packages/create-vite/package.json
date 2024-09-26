@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "start": "esno src/index.ts",
-    "build": "esno build.ts",
+    "build": "esno scripts/build.ts",
     "prestart": "pnpm build",
     "prepublishOnly": "pnpm build"
   },

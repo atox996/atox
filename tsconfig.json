@@ -1,4 +1,10 @@
 {
   "files": [],
-  "references": [{ "path": "./packages/create-vite/tsconfig.json" }]
+  "references": [
+    { "path": "./packages/create-vite/tsconfig.json" },
+    { "path": "./templates/react/tsconfig.json" },
+    { "path": "./templates/simple/tsconfig.json" },
+    { "path": "./templates/vue/tsconfig.json" },
+    { "path": "./templates/vvt-starter/tsconfig.json" }
+  ]
 }

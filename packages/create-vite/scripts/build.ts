@@ -4,7 +4,7 @@ import path from "node:path";
 
 import ignore from "ignore";
 
-import { copy } from "./src/utils";
+import { copy } from "../src/utils";
 
 const cwd = process.cwd();
 
