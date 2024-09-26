@@ -1,6 +1,7 @@
 {
   "name": "@atox/create-vite",
   "version": "0.0.19",
+  "description": "Create vite project",
   "type": "module",
   "bin": {
     "create-vite": "index.js"
@@ -33,5 +34,25 @@
   },
   "engines": {
     "node": "^18.0.0 || >=20.0.0"
+  },
+  "license": "MIT",
+  "keywords": [
+    "vite",
+    "react",
+    "vue",
+    "monorepo",
+    "typescript",
+    "eslint"
+  ],
+  "author": {
+    "name": "Wang",
+    "email": "wc19950724@gmail.com",
+    "url": "https://github.com/Katarina-W"
+  },
+  "homepage": "https://github.com/Katarina-W/atox/tree/master/packages/create-vite#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Katarina-W/atox.git",
+    "directory": "packages/create-vite"
   }
 }

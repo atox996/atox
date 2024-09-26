@@ -10,18 +10,15 @@ const autoImports = require("./.eslintrc-auto-import.json");
 export default tseslint.config(
   {
     ignores: ["dist/"],
+    languageOptions: {
+      globals: autoImports.globals,
+    },
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   ...eslintPluginVue.configs["flat/recommended"],
   {
     files: ["*.vue", "**/*.vue"],
-    languageOptions: {
-      globals: autoImports.globals,
-      parserOptions: {
-        parser: "@typescript-eslint/parser",
-      },
-    },
     rules: {
       "vue/multi-word-component-names": "off",
     },
