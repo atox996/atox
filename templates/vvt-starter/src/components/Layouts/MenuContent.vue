@@ -44,17 +44,15 @@ const props = defineProps<{
   navData: readonly _RouteRecordBase[];
 }>();
 
-const getMenuList = (list?: readonly _RouteRecordBase[]) => {
-  if (!list?.length) return [];
+const getMenuList = <T extends _RouteRecordBase>(list: readonly T[]): T[] => {
   return list
     .filter((item) => item.meta?.hidden !== true)
     .map((item) => {
-      if (item.meta?.single) {
-        const singleRoute = item.children![0];
-        return singleRoute;
-      }
+      if (item.children?.length) item.children = getMenuList(item.children);
+      if (item.meta?.single === true) return item.children![0] as T;
       return item;
-    });
+    })
+    .filter(Boolean);
 };
 
 const menuList = computed(() => getMenuList(props.navData));

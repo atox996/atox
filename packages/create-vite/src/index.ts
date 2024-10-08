@@ -13,7 +13,7 @@ import {
   isValidPackageName,
   toValidPackageName,
 } from "./utils";
-import { DEFAULT_TAGET_DIR, FRAMEWORKS, helpMessage } from "./constance";
+import { FRAMEWORKS, helpMessage } from "./constance";
 import { fileURLToPath } from "node:url";
 import ignore from "ignore";
 import pkgJson from "../package.json";
@@ -34,10 +34,8 @@ const argv = minimist<{
 
 const cwd = process.cwd();
 
-const pkgManager = await findAvailablePackageManager();
-
 async function init() {
-  const argTargetDir = formatTargetDir(argv._[0]);
+  const targetDir = formatTargetDir(argv._[0] || cwd);
   const argTemplate = argv.template || argv.t;
 
   const version = argv.version;
@@ -51,11 +49,9 @@ async function init() {
     console.log(helpMessage);
     return;
   }
-  let targetDir = argTargetDir || DEFAULT_TAGET_DIR;
+  let projectName = toValidPackageName(getProjectName(targetDir));
 
-  let result: prompts.Answers<
-    "projectName" | "overwrite" | "packageName" | "framework"
-  >;
+  let result: prompts.Answers<"overwrite" | "framework">;
 
   prompts.override({
     overwrite: argv.overwrite,
@@ -65,12 +61,14 @@ async function init() {
     result = await prompts(
       [
         {
-          type: argTargetDir ? null : "text",
+          type: "text",
           name: "projectName",
           message: pcolor.reset("Project name:"),
-          initial: DEFAULT_TAGET_DIR,
+          initial: projectName,
+          validate: (dir) =>
+            isValidPackageName(dir) || "Invalid package.json name",
           onState: (state) => {
-            targetDir = formatTargetDir(state.value) || DEFAULT_TAGET_DIR;
+            projectName = toValidPackageName(state.value);
           },
         },
         {
@@ -101,20 +99,11 @@ async function init() {
         {
           type: (_, { overwrite }: { overwrite?: string }) => {
             if (overwrite === "no") {
-              throw new Error(pcolor.red("✖") + " Operation cancelled");
+              throw new Error("Operation cancelled");
             }
             return null;
           },
           name: "overwriteChecker",
-        },
-        {
-          type: () =>
-            isValidPackageName(getProjectName(targetDir)) ? null : "text",
-          name: "packageName",
-          message: pcolor.reset("Package name:"),
-          initial: () => toValidPackageName(getProjectName(targetDir)),
-          validate: (dir) =>
-            isValidPackageName(dir) || "Invalid package.json name",
         },
         {
           type:
@@ -130,43 +119,38 @@ async function init() {
                 )
               : pcolor.reset("Select a framework:"),
           initial: 0,
-          choices: FRAMEWORKS.map((framework) => {
-            const frameworkColor = framework.color;
-            return {
-              title: frameworkColor(framework.display),
-              value: framework,
-            };
-          }),
+          choices: FRAMEWORKS.map((framework) => ({
+            title: framework.color(framework.display),
+            value: framework.name,
+          })),
         },
       ],
       {
         onCancel: () => {
-          throw new Error(pcolor.red("✖") + " Operation cancelled");
+          throw new Error("Operation cancelled");
         },
       },
     );
   } catch (cancelled) {
     if (cancelled instanceof Error) {
-      console.log(cancelled.message);
+      console.log(pcolor.red("x ") + cancelled.message);
     }
     return;
   }
 
   // user choice associated with prompts
-  const { framework, overwrite, packageName } = result;
-
-  const root = path.join(cwd, targetDir);
+  const { framework, overwrite } = result;
 
   if (overwrite === "yes") {
-    emptyDir(root);
-  } else if (!fs.existsSync(root)) {
-    fs.mkdirSync(root, { recursive: true });
+    emptyDir(targetDir);
+  } else if (!fs.existsSync(targetDir)) {
+    fs.mkdirSync(targetDir, { recursive: true });
   }
 
   // determine template
-  const template: string = framework?.name || argTemplate;
+  const template: string = framework || argTemplate;
 
-  console.log(`\nScaffolding project in ${root}...`);
+  console.log(`\nScaffolding project in ${targetDir}...`);
 
   const templateDir = path.resolve(
     fileURLToPath(import.meta.url),
@@ -192,7 +176,7 @@ async function init() {
   const filteredFiles = files.filter((file) => !ig.ignores(file));
 
   for (const file of filteredFiles) {
-    const targetPath = path.join(root, file);
+    const targetPath = path.join(targetDir, file);
     copy(path.join(templateDir, file), targetPath, (srcPath) =>
       ig.ignores(path.relative(templateDir, srcPath)),
     );
@@ -201,23 +185,27 @@ async function init() {
   const pkg = JSON.parse(
     fs.readFileSync(path.join(templateDir, "package.json"), "utf-8"),
   );
-  pkg.name = packageName || getProjectName(targetDir);
+  pkg.name = projectName;
   fs.writeFileSync(
-    path.join(root, "package.json"),
+    path.join(targetDir, "package.json"),
     JSON.stringify(pkg, null, 2) + "\n",
   );
 
-  copy(gitignorePath, path.join(root, ".gitignore"));
+  copy(gitignorePath, path.join(targetDir, ".gitignore"));
 
-  const cdProjectName = path.relative(cwd, root);
+  const cdProjectName = targetDir.startsWith(cwd)
+    ? path.relative(cwd, targetDir)
+    : targetDir;
   console.log(`\nDone. Now run:\n`);
-  if (root !== cwd) {
+  if (cdProjectName) {
     console.log(
       `  cd ${
         cdProjectName.includes(" ") ? `"${cdProjectName}"` : cdProjectName
       }`,
     );
   }
+
+  const pkgManager = await findAvailablePackageManager();
   if (!pkgManager) {
     console.log(
       "No package manager is available. Please install one and try again.",

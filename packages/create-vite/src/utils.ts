@@ -1,12 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import { exec } from "child_process";
-export function formatTargetDir(targetDir: string | undefined) {
-  return targetDir?.trim().replace(/\/+$/g, "");
+export function formatTargetDir(targetDir: string) {
+  const formattedDir = targetDir.trim().replace(/\/+$/, "");
+  return path.resolve(formattedDir);
 }
 
 export const getProjectName = (targetDir: string) =>
-  targetDir === "." ? path.basename(path.resolve()) : targetDir;
+  path.basename(path.resolve(targetDir));
 
 export function isEmpty(path: string) {
   const files = fs.readdirSync(path);

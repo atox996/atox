@@ -15,7 +15,11 @@
 const route = useRoute();
 const router = useRouter();
 
-const active = computed(() => route.path);
+const active = computed(
+  () =>
+    route.matched.findLast((item) => item.meta.hidden !== true)?.path ||
+    route.path,
+);
 
 const expanded = ref<string[]>([]);
 
