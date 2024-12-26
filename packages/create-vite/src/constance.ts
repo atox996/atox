@@ -3,7 +3,7 @@ import pcolor from "picocolors";
 const OPTIONS = [
   {
     name: "-t, --template NAME",
-    description: "Use a specific template",
+    description: "Specify a template from available frameworks",
     color: pcolor.blue,
   },
   {
@@ -13,7 +13,8 @@ const OPTIONS = [
   },
   {
     name: "[DIRECTORY]",
-    description: "Project directory, defaults to current directory",
+    description:
+      "Project directory. If omitted, the project is created in the current directory",
     color: pcolor.blue,
   },
 ];
@@ -50,22 +51,24 @@ export const FRAMEWORKS: Framework[] = [
 const EXAMPLES = [
   {
     name: "create-vite",
-    description: "Create in interactive mode",
+    description:
+      "Create a new project in the current directory, choose a template interactively",
+    color: pcolor.yellow,
+  },
+  {
+    name: "create-vite my-project",
+    description:
+      "Create a new project in a subdirectory named 'my-project' and choose a template interactively",
     color: pcolor.yellow,
   },
   {
     name: "create-vite -t vue",
-    description: "Create vue template in current directory",
+    description: "Create a Vue project in the current directory",
     color: pcolor.yellow,
   },
   {
-    name: "create-vite -t react vite-project",
-    description: "Create react template in ./vite-project",
-    color: pcolor.yellow,
-  },
-  {
-    name: "create-vite /path/to/vite-project",
-    description: "Manually select template for /path/to/vite-project",
+    name: "create-vite my-project -t react",
+    description: "Create a React project in 'my-project' directory",
     color: pcolor.yellow,
   },
 ];
@@ -82,16 +85,16 @@ const maxNameLengthForExample = Math.max(
 const getSpaces = (len: number) => " ".repeat(len + 4);
 
 export const helpMessage = `\n
-${pcolor.bold(pcolor.yellow("Usage:"))} create-vite [OPTION]... [DIRECTORY]
+${pcolor.bold(pcolor.yellow("Usage:"))} create-vite [DIRECTORY] [OPTION]...
 
-${pcolor.bold("Create a new Vite project with ESLint, Prettier and TypeScript.")} 
+${pcolor.bold("Create a new Vite project with ESLint, Prettier, and TypeScript.")}
 
 ${pcolor.bold(pcolor.cyan("Options:"))}
   ${OPTIONS.map((item) => `${item.color(item.name)}${getSpaces(maxNameLength - item.name.length)}${item.description || ""}`).join("\n  ")}
 
-${pcolor.bold(pcolor.cyan("Available templates:"))}
+${pcolor.bold(pcolor.cyan("Available frameworks:"))}
   ${FRAMEWORKS.map((item) => `${item.color(item.name)}${getSpaces(maxNameLength - item.name.length)}${item.description || ""}`).join("\n  ")}
 
 ${pcolor.bold(pcolor.cyan("Examples:"))}
   ${EXAMPLES.map((item) => `${item.color(item.name)}${getSpaces(maxNameLengthForExample - item.name.length)}${item.description || ""}`).join("\n  ")}
-  `;
+`;

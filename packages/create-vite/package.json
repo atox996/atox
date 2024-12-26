@@ -45,14 +45,14 @@
     "eslint"
   ],
   "author": {
-    "name": "Wang",
-    "email": "wc19950724@gmail.com",
-    "url": "https://github.com/Katarina-W"
+    "name": "Atox996",
+    "email": "atox996@gmail.com",
+    "url": "https://github.com/atox996"
   },
-  "homepage": "https://github.com/Katarina-W/atox/tree/master/packages/create-vite#readme",
+  "homepage": "https://github.com/atox996/atox/tree/master/packages/create-vite#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Katarina-W/atox.git",
+    "url": "git+https://github.com/atox996/atox.git",
     "directory": "packages/create-vite"
   }
 }

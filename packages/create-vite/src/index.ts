@@ -76,10 +76,7 @@ async function init() {
             !fs.existsSync(targetDir) || isEmpty(targetDir) ? null : "select",
           name: "overwrite",
           message: () =>
-            (targetDir === "."
-              ? "Current directory"
-              : `Target directory "${targetDir}"`) +
-            ` is not empty. Please choose how to proceed:`,
+            `Target directory "${targetDir}" is not empty. Please choose how to proceed:`,
           initial: 0,
           choices: [
             {
